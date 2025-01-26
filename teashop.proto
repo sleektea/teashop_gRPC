@@ -1,0 +1,35 @@
+syntax = "proto3";
+package teashop;
+
+option go_package = "github.com/sleektea/teashop/teashop_proto";
+
+service TeaShop {
+    rpc GetMenu(MenuRequest) returns (stream Menu) {}
+    rpc PlaceOrder(Order) returns (Receipt) {}
+    rpc GetOrderStatus(Receipt) returns (OrderStatus) {}
+}
+
+message MenuRequest {}
+message Order {
+    repeated Item items = 1;
+}
+message Receipt {
+    string id = 1;
+    int32 Cost = 2;
+}
+message OrderStatus {
+    string OrderId = 1;
+    string status = 2;
+}
+message Menu {
+    repeated ItemPrice itemprice = 1;
+}
+message Item {
+    string id = 1;
+    string name = 2;
+}
+message ItemPrice {
+    string id = 1;
+    string name = 2;
+    string price = 3;
+}
